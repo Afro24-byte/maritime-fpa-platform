@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Manager Dashboard</title>
+</head>
+<body>
+
+<h1>Manager Dashboard</h1>
+
+<p>Welcome, Manager!</p>
+
+<form th:action="@{/logout}" method="post">
+  <button type="submit">Logout</button>
+</form>
+
+</body>
+</html>
