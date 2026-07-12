@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
+    <meta charset="UTF-8">
     <title>Administrator Dashboard</title>
 </head>
+
 <body>
 
 <h1>Administrator Dashboard</h1>
 
 <p>Welcome, Administrator!</p>
 
+<h2>Business Modules</h2>
+
+<ul>
+    <li>
+        <a th:href="@{/fleets}">
+            Fleet Management
+        </a>
+    </li>
+
+    <li>
+        <a th:href="@{/vessels}">
+            Vessel Management
+        </a>
+    </li>
+</ul>
+
 <form th:action="@{/logout}" method="post">
     <button type="submit">Logout</button>
 </form>
 
 </body>
+
 </html>

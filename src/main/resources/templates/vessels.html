@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vessel Management</title>
+</head>
+
+<body>
+
+<h1>Vessel Management Module</h1>
+
+<p>
+
+  <a th:href="@{/admin/dashboard}">
+    Dashboard
+  </a>
+
+  |
+
+  <a th:href="@{/fleets}">
+    Fleet Management
+  </a>
+
+</p>
+
+<p>
+  <a th:href="@{/vessels/new}">Create Vessel</a>
+</p>
+
+<table border="1">
+
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>IMO Number</th>
+    <th>Fleet</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+  <tr th:each="vessel : ${vessels}">
+
+    <td th:text="${vessel.id}"></td>
+
+    <td th:text="${vessel.name}"></td>
+
+    <td th:text="${vessel.imoNumber}"></td>
+
+    <td th:text="${vessel.fleet.name}"></td>
+
+    <td th:text="${vessel.active} ? 'Active' : 'Inactive'"></td>
+
+    <td>
+      <a th:href="@{/vessels/{id}/edit(id=${vessel.id})}">
+        Edit
+      </a>
+
+
+      <a th:href="@{/vessels/{id}/delete(id=${vessel.id})}">
+        Delete
+      </a>
+    </td>
+
+  </tr>
+
+  </tbody>
+
+</table>
+
+</body>
+
+</html>

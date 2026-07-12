@@ -30,9 +30,16 @@ public class VesselService {
 
     public Vessel save(Vessel vessel) {
 
-        if (vesselRepository.existsByImoNumber(vessel.getImoNumber())) {
+        Optional<Vessel> existingVessel =
+                vesselRepository.findByImoNumber(vessel.getImoNumber());
+
+        if (existingVessel.isPresent()
+                && !existingVessel.get().getId().equals(vessel.getId())) {
+
             throw new IllegalArgumentException(
-                    "A vessel with IMO number " + vessel.getImoNumber() + " already exists."
+                    "A vessel with IMO number "
+                            + vessel.getImoNumber()
+                            + " already exists."
             );
         }
 
