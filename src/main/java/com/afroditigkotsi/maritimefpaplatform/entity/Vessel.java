@@ -4,19 +4,12 @@ import com.afroditigkotsi.maritimefpaplatform.enums.FuelType;
 import com.afroditigkotsi.maritimefpaplatform.enums.VesselStatus;
 import com.afroditigkotsi.maritimefpaplatform.enums.VesselType;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vessels")
-public class Vessel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Vessel extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
@@ -52,12 +45,6 @@ public class Vessel {
     @JoinColumn(name = "fleet_id", nullable = false)
     private Fleet fleet;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 
     public Vessel() {
     }
@@ -85,13 +72,6 @@ public class Vessel {
         this.fleet = fleet;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -173,19 +153,4 @@ public class Vessel {
         this.fleet = fleet;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
