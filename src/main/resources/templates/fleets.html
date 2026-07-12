@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fleet Management</title>
+</head>
+
+<body>
+
+<h1>Fleet Management</h1>
+
+<table border="1">
+
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Active</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr th:each="fleet : ${fleets}">
+        <td th:text="${fleet.id}"></td>
+        <td th:text="${fleet.name}"></td>
+        <td th:text="${fleet.description}"></td>
+        <td th:text="${fleet.active}"></td>
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+
+</html>
