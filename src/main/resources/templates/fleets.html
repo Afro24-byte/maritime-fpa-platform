@@ -13,11 +13,13 @@
 <table border="1">
 
     <thead>
+
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Description</th>
         <th>Active</th>
+        <th>Actions</th>
     </tr>
     </thead>
 
@@ -28,6 +30,14 @@
         <td th:text="${fleet.name}"></td>
         <td th:text="${fleet.description}"></td>
         <td th:text="${fleet.active}"></td>
+        <td>
+            <a th:href="@{/fleets/{id}/edit(id=${fleet.id})}">
+                Edit
+            </a>
+            <a th:href="@{/fleets/{id}/delete(id=${fleet.id})}">
+                Delete
+            </a>
+        </td>
     </tr>
 
     </tbody>

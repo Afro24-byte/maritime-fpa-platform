@@ -9,6 +9,7 @@ import com.afroditigkotsi.maritimefpaplatform.entity.Fleet;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping("/fleets")
@@ -40,6 +41,27 @@ public class FleetController {
     public RedirectView saveFleet(@ModelAttribute Fleet fleet) {
 
         fleetService.save(fleet);
+
+        return new RedirectView("/fleets");
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+
+        Fleet fleet = fleetService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Invalid fleet ID: " + id
+                ));
+
+        model.addAttribute("fleet", fleet);
+
+        return "fleet-form";
+    }
+
+    @GetMapping("/{id}/delete")
+    public RedirectView deleteFleet(@PathVariable Long id) {
+
+        fleetService.deleteById(id);
 
         return new RedirectView("/fleets");
     }
