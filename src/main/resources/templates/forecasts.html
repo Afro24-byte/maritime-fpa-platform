@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Forecasts</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<h1>Forecast Management</h1>
+
+<p th:if="${success}" th:text="${success}" style="color: green;"></p>
+
+<p>
+  <a th:href="@{/forecasts/new}">Create New Forecast</a>
+</p>
+
+<table border="1">
+
+  <thead>
+  <tr>
+    <th>Vessel</th>
+    <th>Budget Year</th>
+    <th>Scenario</th>
+    <th>Status</th>
+    <th>Operating Days</th>
+    <th>Off Hire Days</th>
+    <th>Daily Revenue Rate</th>
+    <th>Total Forecast</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+  <tr th:each="forecast : ${forecasts}">
+
+    <td th:text="${forecast.vessel.name}"></td>
+
+    <td th:text="${forecast.budget.budgetYear}"></td>
+
+    <td th:text="${forecast.scenarioType}"></td>
+
+    <td th:text="${forecast.status}"></td>
+
+    <td th:text="${forecast.operatingDays}"></td>
+
+    <td th:text="${forecast.offHireDays}"></td>
+
+    <td th:text="${forecast.dailyRevenueRate}"></td>
+
+    <td th:text="${forecast.totalForecast}"></td>
+
+    <td>
+      Coming Soon
+    </td>
+
+  </tr>
+
+  </tbody>
+
+</table>
+
+<br>
+
+<p>
+  <a th:href="@{/admin/dashboard}">
+    Back to Dashboard
+  </a>
+</p>
+
+</body>
+</html>

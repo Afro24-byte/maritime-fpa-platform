@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Forecast</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+<h1>Create Forecast</h1>
+
+<form th:action="@{/forecasts/save}"
+      th:object="${forecast}"
+      method="post">
+
+    <fieldset>
+        <legend><strong>Forecast Information</strong></legend>
+
+        <p>
+            <label>Vessel:</label>
+
+            <select th:field="*{vessel}" required>
+                <option value="">Select Vessel</option>
+
+                <option
+                        th:each="vessel : ${vessels}"
+                        th:value="${vessel.id}"
+                        th:text="${vessel.name}">
+                </option>
+            </select>
+        </p>
+
+        <p>
+            <label>Budget:</label>
+
+            <select th:field="*{budget}" required>
+                <option value="">Select Budget</option>
+
+                <option
+                        th:each="budget : ${budgets}"
+                        th:value="${budget.id}"
+                        th:text="${budget.vessel.name + ' - ' + budget.budgetYear}">
+                </option>
+
+            </select>
+        </p>
+
+        <p>
+            <label>Scenario:</label>
+
+            <select th:field="*{scenarioType}" required>
+
+                <option
+                        th:each="scenario : ${scenarioTypes}"
+                        th:value="${scenario}"
+                        th:text="${scenario}">
+                </option>
+
+            </select>
+        </p>
+
+        <p>
+            <label>Status:</label>
+
+            <select th:field="*{status}" required>
+
+                <option
+                        th:each="status : ${statuses}"
+                        th:value="${status}"
+                        th:text="${status}">
+                </option>
+
+            </select>
+        </p>
+
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+
+        <legend><strong>Operational Assumptions</strong></legend>
+
+        <p>
+            <label>Operating Days:</label>
+            <input type="number"
+                   th:field="*{operatingDays}"
+                   required/>
+        </p>
+
+        <p>
+            <label>Off Hire Days:</label>
+            <input type="number"
+                   th:field="*{offHireDays}"
+                   required/>
+        </p>
+
+        <p>
+            <label>Daily Revenue Rate:</label>
+            <input type="number"
+                   step="0.01"
+                   th:field="*{dailyRevenueRate}"
+                   required/>
+        </p>
+
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+
+        <legend><strong>Forecast Costs</strong></legend>
+
+        <p>
+            <label>Fuel Cost:</label>
+            <input type="number" step="0.01"
+                   th:field="*{fuelCost}" required/>
+        </p>
+
+        <p>
+            <label>Crew Cost:</label>
+            <input type="number" step="0.01"
+                   th:field="*{crewCost}" required/>
+        </p>
+
+        <p>
+            <label>Maintenance Cost:</label>
+            <input type="number" step="0.01"
+                   th:field="*{maintenanceCost}" required/>
+        </p>
+
+        <p>
+            <label>Insurance Cost:</label>
+            <input type="number" step="0.01"
+                   th:field="*{insuranceCost}" required/>
+        </p>
+
+        <p>
+            <label>Port Charges:</label>
+            <input type="number" step="0.01"
+                   th:field="*{portCharges}" required/>
+        </p>
+
+        <p>
+            <label>Other Expenses:</label>
+            <input type="number" step="0.01"
+                   th:field="*{otherExpenses}" required/>
+        </p>
+
+    </fieldset>
+
+    <br>
+
+    <button type="submit">
+        Save Forecast
+    </button>
+
+</form>
+
+<br>
+
+<p>
+    <a th:href="@{/forecasts}">
+        Back to Forecast List
+    </a>
+</p>
+
+</body>
+</html>
