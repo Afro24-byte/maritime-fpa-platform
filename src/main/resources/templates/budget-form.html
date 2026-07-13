@@ -9,6 +9,8 @@
 
 <h1>Create Budget</h1>
 
+<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
 <form th:action="@{/budgets/save}" th:object="${budget}" method="post">
 
   <input type="hidden" th:field="*{id}">

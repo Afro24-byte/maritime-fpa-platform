@@ -58,15 +58,31 @@ public class BudgetController {
 
         budget.setVessel(vessel);
 
-        if (budgetService.existsByVesselAndBudgetYear(
-                budget.getVessel(),
-                budget.getBudgetYear())) {
+        boolean budgetExists;
+
+        if (budget.getId() == null) {
+
+            budgetExists = budgetService.existsByVesselAndBudgetYear(
+                    budget.getVessel(),
+                    budget.getBudgetYear());
+
+        } else {
+
+            budgetExists = budgetService.existsByVesselAndBudgetYearAndIdNot(
+                    budget.getVessel(),
+                    budget.getBudgetYear(),
+                    budget.getId());
+        }
+
+        if (budgetExists) {
 
             redirectAttributes.addFlashAttribute(
                     "error",
                     "A budget already exists for this vessel and year.");
 
-            return "redirect:/budgets/new";
+            return budget.getId() == null
+                    ? "redirect:/budgets/new"
+                    : "redirect:/budgets/edit/" + budget.getId();
         }
 
         budgetService.save(budget);
