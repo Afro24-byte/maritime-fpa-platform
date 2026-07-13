@@ -10,6 +10,8 @@
 
 <h1>Fleet Management</h1>
 
+<p th:if="${success}" th:text="${success}" style="color: green;"></p>
+
 <p>
 
     <a th:href="@{/admin/dashboard}">
@@ -24,6 +26,12 @@
 
 </p>
 
+<p>
+    <a th:href="@{/fleets/new}">
+        Create New Fleet
+    </a>
+</p>
+
 <table border="1">
 
     <thead>
@@ -35,23 +43,32 @@
         <th>Active</th>
         <th>Actions</th>
     </tr>
+
     </thead>
 
     <tbody>
 
     <tr th:each="fleet : ${fleets}">
+
         <td th:text="${fleet.id}"></td>
         <td th:text="${fleet.name}"></td>
         <td th:text="${fleet.description}"></td>
         <td th:text="${fleet.active}"></td>
+
         <td>
+
             <a th:href="@{/fleets/{id}/edit(id=${fleet.id})}">
                 Edit
             </a>
+
+            |
+
             <a th:href="@{/fleets/{id}/delete(id=${fleet.id})}">
                 Delete
             </a>
+
         </td>
+
     </tr>
 
     </tbody>

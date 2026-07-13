@@ -52,7 +52,18 @@
     <td th:text="${forecast.totalForecast}"></td>
 
     <td>
-      Coming Soon
+
+      <a th:href="@{/forecasts/{id}/edit(id=${forecast.id})}">
+        Edit
+      </a>
+
+      |
+
+      <a th:href="@{/forecasts/{id}/delete(id=${forecast.id})}"
+         onclick="return confirm('Are you sure you want to delete this Forecast?');">
+        Delete
+      </a>
+
     </td>
 
   </tr>

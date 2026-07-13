@@ -1,5 +1,6 @@
 package com.afroditigkotsi.maritimefpaplatform.controller;
 
+import com.afroditigkotsi.maritimefpaplatform.entity.Fleet;
 import com.afroditigkotsi.maritimefpaplatform.entity.Vessel;
 import com.afroditigkotsi.maritimefpaplatform.service.FleetService;
 import com.afroditigkotsi.maritimefpaplatform.service.VesselService;
@@ -38,7 +39,14 @@ public class VesselController {
     }
 
     @PostMapping
-    public String saveVessel(@ModelAttribute Vessel vessel) {
+    public String saveVessel(@ModelAttribute Vessel vessel,
+                             @RequestParam("fleetId") Long fleetId) {
+
+        Fleet fleet = fleetService.findById(fleetId)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Invalid fleet ID: " + fleetId));
+
+        vessel.setFleet(fleet);
 
         vesselService.save(vessel);
 

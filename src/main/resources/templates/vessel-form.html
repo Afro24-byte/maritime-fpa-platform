@@ -31,13 +31,16 @@
   <p>
     <label>Fleet</label><br>
 
-    <select th:field="*{fleet}">
+    <select id="fleetId"
+            name="fleetId"
+            required>
+
       <option value="">-- Select Fleet --</option>
 
-      <option
-              th:each="fleet : ${fleets}"
+      <option th:each="fleet : ${fleets}"
               th:value="${fleet.id}"
-              th:text="${fleet.name}">
+              th:text="${fleet.name}"
+              th:selected="${vessel.fleet != null and vessel.fleet.id == fleet.id}">
       </option>
 
     </select>

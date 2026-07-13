@@ -9,7 +9,7 @@
 
 <h1>Create Forecast</h1>
 
-<form th:action="@{/forecasts/save}"
+<form th:action="@{${formAction}}"
       th:object="${forecast}"
       method="post">
 
@@ -19,27 +19,34 @@
         <p>
             <label>Vessel:</label>
 
-            <select th:field="*{vessel}" required>
+            <select id="vesselId"
+                    name="vesselId"
+                    required>
+
                 <option value="">Select Vessel</option>
 
-                <option
-                        th:each="vessel : ${vessels}"
+                <option th:each="vessel : ${vessels}"
                         th:value="${vessel.id}"
-                        th:text="${vessel.name}">
+                        th:text="${vessel.name}"
+                        th:selected="${forecast.vessel != null and forecast.vessel.id == vessel.id}">
                 </option>
+
             </select>
         </p>
 
         <p>
             <label>Budget:</label>
 
-            <select th:field="*{budget}" required>
+            <select id="budgetId"
+                    name="budgetId"
+                    required>
+
                 <option value="">Select Budget</option>
 
-                <option
-                        th:each="budget : ${budgets}"
+                <option th:each="budget : ${budgets}"
                         th:value="${budget.id}"
-                        th:text="${budget.vessel.name + ' - ' + budget.budgetYear}">
+                        th:text="${budget.vessel.name + ' - ' + budget.budgetYear}"
+                        th:selected="${forecast.budget != null and forecast.budget.id == budget.id}">
                 </option>
 
             </select>
