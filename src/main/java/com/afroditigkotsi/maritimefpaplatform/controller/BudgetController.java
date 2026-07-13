@@ -1,19 +1,14 @@
 package com.afroditigkotsi.maritimefpaplatform.controller;
 
 import com.afroditigkotsi.maritimefpaplatform.entity.Budget;
+import com.afroditigkotsi.maritimefpaplatform.entity.Vessel;
 import com.afroditigkotsi.maritimefpaplatform.enums.BudgetStatus;
 import com.afroditigkotsi.maritimefpaplatform.service.BudgetService;
 import com.afroditigkotsi.maritimefpaplatform.service.VesselService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.afroditigkotsi.maritimefpaplatform.entity.Vessel;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class BudgetController {
