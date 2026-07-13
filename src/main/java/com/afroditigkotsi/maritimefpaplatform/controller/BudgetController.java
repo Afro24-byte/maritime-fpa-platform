@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.afroditigkotsi.maritimefpaplatform.entity.Vessel;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class BudgetController {
@@ -72,6 +74,34 @@ public class BudgetController {
         redirectAttributes.addFlashAttribute(
                 "success",
                 "Budget created successfully.");
+
+        return "redirect:/budgets";
+    }
+
+
+
+    @GetMapping("/budgets/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+
+        Budget budget = budgetService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid budget id"));
+
+        model.addAttribute("budget", budget);
+        model.addAttribute("vessels", vesselService.findAll());
+        model.addAttribute("statuses", BudgetStatus.values());
+
+        return "budget-form";
+    }
+
+    @GetMapping("/budgets/delete/{id}")
+    public String deleteBudget(@PathVariable Long id,
+                               RedirectAttributes redirectAttributes) {
+
+        budgetService.deleteById(id);
+
+        redirectAttributes.addFlashAttribute(
+                "success",
+                "Budget deleted successfully.");
 
         return "redirect:/budgets";
     }

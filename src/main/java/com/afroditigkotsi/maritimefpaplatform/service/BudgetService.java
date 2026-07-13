@@ -45,6 +45,18 @@ public class BudgetService {
         return budgetRepository.existsByVesselAndBudgetYear(vessel, budgetYear);
     }
 
+    public boolean existsByVesselAndBudgetYearAndIdNot(
+            Vessel vessel,
+            Integer budgetYear,
+            Long id) {
+
+        return budgetRepository.existsByVesselAndBudgetYearAndIdNot(
+                vessel,
+                budgetYear,
+                id
+        );
+    }
+
     private void calculateTotalBudget(Budget budget) {
 
         BigDecimal total =

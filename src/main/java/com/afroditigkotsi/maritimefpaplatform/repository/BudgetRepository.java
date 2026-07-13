@@ -15,4 +15,9 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
     boolean existsByVesselAndBudgetYear(Vessel vessel, Integer budgetYear);
 
+    boolean existsByVesselAndBudgetYearAndIdNot(
+            Vessel vessel,
+            Integer budgetYear,
+            Long id
+    );
 }

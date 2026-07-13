@@ -11,6 +11,8 @@
 
 <form th:action="@{/budgets/save}" th:object="${budget}" method="post">
 
+  <input type="hidden" th:field="*{id}">
+
   <p>
     <label>Vessel:</label><br>
     <select name="vesselId">
@@ -19,7 +21,8 @@
 
       <option th:each="vessel : ${vessels}"
               th:value="${vessel.id}"
-              th:text="${vessel.name}">
+              th:text="${vessel.name}"
+              th:selected="${budget.vessel != null and budget.vessel.id == vessel.id}">
       </option>
 
     </select>
