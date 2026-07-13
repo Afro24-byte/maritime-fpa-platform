@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Budgets</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+<h1>Budget Management</h1>
+
+<p>
+    <a th:href="@{/admin/dashboard}">Back to Dashboard</a>
+</p>
+
+<p>
+    <a th:href="@{/budgets/new}">Create New Budget</a>
+</p>
+
+<table border="1">
+
+    <thead>
+    <tr>
+        <th>Year</th>
+        <th>Vessel</th>
+        <th>Total Budget</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr th:each="budget : ${budgets}">
+
+        <td th:text="${budget.budgetYear}"></td>
+
+        <td th:text="${budget.vessel.name}"></td>
+
+        <td th:text="${budget.totalBudget}"></td>
+
+        <td th:text="${budget.status}"></td>
+
+        <td>
+
+            <a th:href="@{/budgets/edit/{id}(id=${budget.id})}">
+                Edit
+            </a>
+
+            |
+
+            <a th:href="@{/budgets/delete/{id}(id=${budget.id})}">
+                Delete
+            </a>
+
+        </td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+</html>

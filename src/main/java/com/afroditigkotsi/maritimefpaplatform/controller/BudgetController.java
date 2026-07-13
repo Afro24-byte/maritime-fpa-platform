@@ -1,0 +1,78 @@
+package com.afroditigkotsi.maritimefpaplatform.controller;
+
+import com.afroditigkotsi.maritimefpaplatform.entity.Budget;
+import com.afroditigkotsi.maritimefpaplatform.enums.BudgetStatus;
+import com.afroditigkotsi.maritimefpaplatform.service.BudgetService;
+import com.afroditigkotsi.maritimefpaplatform.service.VesselService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.afroditigkotsi.maritimefpaplatform.entity.Vessel;
+
+@Controller
+public class BudgetController {
+
+    private final BudgetService budgetService;
+    private final VesselService vesselService;
+
+    public BudgetController(BudgetService budgetService,
+                            VesselService vesselService) {
+        this.budgetService = budgetService;
+        this.vesselService = vesselService;
+    }
+
+    @GetMapping("/budgets")
+    public String listBudgets(Model model) {
+
+        model.addAttribute("budgets", budgetService.findAll());
+
+        return "budgets";
+    }
+
+    @GetMapping("/budgets/new")
+    public String showCreateForm(Model model) {
+
+        model.addAttribute("budget", new Budget());
+
+        model.addAttribute("vessels", vesselService.findAll());
+
+        model.addAttribute("statuses", BudgetStatus.values());
+
+        return "budget-form";
+    }
+
+
+    @PostMapping("/budgets/save")
+    public String saveBudget(@ModelAttribute Budget budget,
+                             @RequestParam Long vesselId,
+                             RedirectAttributes redirectAttributes) {
+
+        Vessel vessel = vesselService.findById(vesselId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid vessel id"));
+
+        budget.setVessel(vessel);
+
+        if (budgetService.existsByVesselAndBudgetYear(
+                budget.getVessel(),
+                budget.getBudgetYear())) {
+
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "A budget already exists for this vessel and year.");
+
+            return "redirect:/budgets/new";
+        }
+
+        budgetService.save(budget);
+
+        redirectAttributes.addFlashAttribute(
+                "success",
+                "Budget created successfully.");
+
+        return "redirect:/budgets";
+    }
+}
