@@ -27,4 +27,5 @@ public interface ActualRepository extends JpaRepository<Actual, Long> {
             Long id
     );
 
+
 }
