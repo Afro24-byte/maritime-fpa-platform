@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Actuals</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<h1>Actual Performance</h1>
+
+<p th:if="${success}"
+   th:text="${success}"
+   style="color: green;">
+</p>
+
+<p>
+  <a th:href="@{/admin/dashboard}">
+    Back to Dashboard
+  </a>
+</p>
+
+<p>
+  <a th:href="@{/actuals/new}">
+    Create New Actual
+  </a>
+</p>
+
+<table border="1">
+
+  <thead>
+
+  <tr>
+    <th>Year</th>
+    <th>Vessel</th>
+    <th>Total Actual</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  <tr th:each="actual : ${actuals}">
+
+    <td th:text="${actual.actualYear}"></td>
+
+    <td th:text="${actual.vessel.name}"></td>
+
+    <td th:text="${actual.totalActual}"></td>
+
+    <td th:text="${actual.status}"></td>
+
+    <td>
+
+      <a th:href="@{/actuals/edit/{id}(id=${actual.id})}">
+        Edit
+      </a>
+
+      |
+
+      <a th:href="@{/actuals/delete/{id}(id=${actual.id})}"
+         onclick="return confirm('Are you sure you want to delete this Actual?');">
+        Delete
+      </a>
+
+    </td>
+
+  </tr>
+
+  </tbody>
+
+</table>
+
+</body>
+</html>

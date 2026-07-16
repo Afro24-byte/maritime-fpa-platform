@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create Actual</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<h1>Create Actual</h1>
+
+<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+<form th:action="@{/actuals/save}"
+      th:object="${actual}"
+      method="post">
+
+  <input type="hidden" th:field="*{id}">
+
+  <p>
+    <label>Vessel:</label><br>
+
+    <select name="vesselId">
+
+      <option value="">-- Select Vessel --</option>
+
+      <option th:each="vessel : ${vessels}"
+              th:value="${vessel.id}"
+              th:text="${vessel.name}"
+              th:selected="${actual.vessel != null and actual.vessel.id == vessel.id}">
+      </option>
+
+    </select>
+  </p>
+
+  <p>
+    <label>Actual Year:</label><br>
+    <input type="number" th:field="*{actualYear}">
+  </p>
+
+  <p>
+    <label>Fuel Cost:</label><br>
+    <input type="number" step="0.01" th:field="*{fuelCost}">
+  </p>
+
+  <p>
+    <label>Crew Cost:</label><br>
+    <input type="number" step="0.01" th:field="*{crewCost}">
+  </p>
+
+  <p>
+    <label>Maintenance Cost:</label><br>
+    <input type="number" step="0.01" th:field="*{maintenanceCost}">
+  </p>
+
+  <p>
+    <label>Insurance Cost:</label><br>
+    <input type="number" step="0.01" th:field="*{insuranceCost}">
+  </p>
+
+  <p>
+    <label>Port Charges:</label><br>
+    <input type="number" step="0.01" th:field="*{portCharges}">
+  </p>
+
+  <p>
+    <label>Other Expenses:</label><br>
+    <input type="number" step="0.01" th:field="*{otherExpenses}">
+  </p>
+
+  <p>
+    <label>Status:</label><br>
+
+    <select th:field="*{status}">
+
+      <option th:each="status : ${statuses}"
+              th:value="${status}"
+              th:text="${status}">
+      </option>
+
+    </select>
+
+  </p>
+
+  <button type="submit">
+    Save Actual
+  </button>
+
+</form>
+
+<br>
+
+<a th:href="@{/actuals}">
+  Back to Actual List
+</a>
+
+</body>
+</html>
