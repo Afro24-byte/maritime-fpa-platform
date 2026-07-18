@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Executive KPI Dashboard</title>
+</head>
+
+<body>
+
+<h1>Executive KPI Dashboard</h1>
+
+<p>
+    <a th:href="@{/admin/dashboard}">Admin Dashboard</a>
+</p>
+
+<form th:action="@{/kpi/dashboard}" method="get">
+
+    <label>Year:</label>
+
+    <input type="number"
+           name="year"
+           th:value="${dashboard.year}" />
+
+    <button type="submit">
+        Load Dashboard
+    </button>
+
+</form>
+
+<hr>
+
+<h2>Operational KPIs</h2>
+
+<table border="1">
+
+    <tr>
+        <td>Total Fleets</td>
+        <td th:text="${dashboard.totalFleets}"></td>
+    </tr>
+
+    <tr>
+        <td>Active Fleets</td>
+        <td th:text="${dashboard.activeFleets}"></td>
+    </tr>
+
+    <tr>
+        <td>Total Vessels</td>
+        <td th:text="${dashboard.totalVessels}"></td>
+    </tr>
+
+    <tr>
+        <td>Active Vessels</td>
+        <td th:text="${dashboard.activeVessels}"></td>
+    </tr>
+
+</table>
+
+<hr>
+
+<h2>Financial KPIs</h2>
+
+<table border="1">
+
+    <tr>
+        <td>Total Budget</td>
+        <td th:text="${dashboard.totalBudget}"></td>
+    </tr>
+
+    <tr>
+        <td>Total Forecast</td>
+        <td th:text="${dashboard.totalForecast}"></td>
+    </tr>
+
+    <tr>
+        <td>Total Actual</td>
+        <td th:text="${dashboard.totalActual}"></td>
+    </tr>
+
+    <tr>
+        <td>Total Variance</td>
+        <td th:text="${dashboard.totalVariance}"></td>
+    </tr>
+
+    <tr>
+        <td>Variance %</td>
+        <td th:text="${dashboard.totalVariancePercentage}"></td>
+    </tr>
+
+</table>
+
+<hr>
+
+<h2>Vessel Performance</h2>
+
+<table border="1">
+
+    <thead>
+
+    <tr>
+        <th>Vessel</th>
+        <th>Budget</th>
+        <th>Actual</th>
+        <th>Variance</th>
+        <th>Variance %</th>
+        <th>Status</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    <tr th:each="v : ${dashboard.vesselPerformance}">
+
+        <td th:text="${v.vesselName}"></td>
+        <td th:text="${v.budget}"></td>
+        <td th:text="${v.actual}"></td>
+        <td th:text="${v.variance}"></td>
+        <td th:text="${v.variancePercentage}"></td>
+        <td th:text="${v.performanceStatus}"></td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+<hr>
+
+<h2>Forecast Scenarios</h2>
+
+<table border="1">
+
+    <thead>
+
+    <tr>
+        <th>Scenario</th>
+        <th>Total Forecast</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    <tr th:each="scenario : ${dashboard.forecastScenarios}">
+
+        <td th:text="${scenario.scenarioType}"></td>
+        <td th:text="${scenario.totalForecast}"></td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+
+</html>

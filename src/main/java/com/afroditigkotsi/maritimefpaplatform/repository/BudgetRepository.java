@@ -11,13 +11,18 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
     List<Budget> findByVessel(Vessel vessel);
 
-    Optional<Budget> findByVesselAndBudgetYear(Vessel vessel, Integer budgetYear);
+    Optional<Budget> findByVesselAndBudgetYear(
+            Vessel vessel,
+            Integer budgetYear);
 
-    boolean existsByVesselAndBudgetYear(Vessel vessel, Integer budgetYear);
+    boolean existsByVesselAndBudgetYear(
+            Vessel vessel,
+            Integer budgetYear);
 
     boolean existsByVesselAndBudgetYearAndIdNot(
             Vessel vessel,
             Integer budgetYear,
-            Long id
-    );
+            Long id);
+
+    List<Budget> findByBudgetYear(Integer budgetYear);
 }

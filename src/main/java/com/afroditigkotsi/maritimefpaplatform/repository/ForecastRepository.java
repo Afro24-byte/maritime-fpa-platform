@@ -16,13 +16,12 @@ public interface ForecastRepository extends JpaRepository<Forecast, Long> {
 
     boolean existsByBudgetAndScenarioType(
             Budget budget,
-            ScenarioType scenarioType
-    );
+            ScenarioType scenarioType);
 
     boolean existsByBudgetAndScenarioTypeAndIdNot(
             Budget budget,
             ScenarioType scenarioType,
-            Long id
-    );
+            Long id);
 
+    List<Forecast> findByBudgetBudgetYear(Integer budgetYear);
 }

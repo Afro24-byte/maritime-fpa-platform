@@ -13,19 +13,16 @@ public interface ActualRepository extends JpaRepository<Actual, Long> {
 
     Optional<Actual> findByVesselAndActualYear(
             Vessel vessel,
-            Integer actualYear
-    );
+            Integer actualYear);
 
     boolean existsByVesselAndActualYear(
             Vessel vessel,
-            Integer actualYear
-    );
+            Integer actualYear);
 
     boolean existsByVesselAndActualYearAndIdNot(
             Vessel vessel,
             Integer actualYear,
-            Long id
-    );
+            Long id);
 
-
+    List<Actual> findByActualYear(Integer actualYear);
 }
