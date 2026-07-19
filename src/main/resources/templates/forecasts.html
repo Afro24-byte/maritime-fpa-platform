@@ -1,84 +1,139 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <title>Forecasts</title>
   <meta charset="UTF-8">
+  <title>Forecast Management</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<body>
+<body class="bg-light">
 
-<h1>Forecast Management</h1>
+<div class="container">
 
-<p th:if="${success}" th:text="${success}" style="color: green;"></p>
+  <div class="page-header">
 
-<p>
-  <a th:href="@{/forecasts/new}">Create New Forecast</a>
-</p>
+    <h1>Forecast Management</h1>
 
-<table border="1">
+    <p class="text-secondary">
+      Manage financial forecasts and planning scenarios.
+    </p>
 
-  <thead>
-  <tr>
-    <th>Vessel</th>
-    <th>Budget Year</th>
-    <th>Scenario</th>
-    <th>Status</th>
-    <th>Operating Days</th>
-    <th>Off Hire Days</th>
-    <th>Daily Revenue Rate</th>
-    <th>Total Forecast</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
+  </div>
 
-  <tbody>
+  <div th:if="${success}"
+       class="alert alert-success"
+       th:text="${success}">
+  </div>
 
-  <tr th:each="forecast : ${forecasts}">
+  <nav class="mb-4">
 
-    <td th:text="${forecast.vessel.name}"></td>
+    <a th:href="@{/admin/dashboard}"
+       class="btn btn-outline-secondary btn-sm">
+      Dashboard
+    </a>
 
-    <td th:text="${forecast.budget.budgetYear}"></td>
+  </nav>
 
-    <td th:text="${forecast.scenarioType}"></td>
+  <div class="mb-4">
 
-    <td th:text="${forecast.status}"></td>
+    <a th:href="@{/forecasts/new}"
+       class="btn btn-primary">
+      + Create New Forecast
+    </a>
 
-    <td th:text="${forecast.operatingDays}"></td>
+  </div>
 
-    <td th:text="${forecast.offHireDays}"></td>
+  <div class="card shadow-sm">
 
-    <td th:text="${forecast.dailyRevenueRate}"></td>
+    <div class="card-body">
 
-    <td th:text="${forecast.totalForecast}"></td>
+      <table class="table table-striped table-hover align-middle mb-0">
 
-    <td>
+        <thead class="table-dark">
 
-      <a th:href="@{/forecasts/{id}/edit(id=${forecast.id})}">
-        Edit
-      </a>
+        <tr>
+          <th>Vessel</th>
+          <th>Budget Year</th>
+          <th>Scenario</th>
+          <th>Status</th>
+          <th>Operating Days</th>
+          <th>Off Hire Days</th>
+          <th>Daily Revenue Rate</th>
+          <th>Total Forecast</th>
+          <th style="width:180px;">Actions</th>
+        </tr>
 
-      |
+        </thead>
 
-      <a th:href="@{/forecasts/{id}/delete(id=${forecast.id})}"
-         onclick="return confirm('Are you sure you want to delete this Forecast?');">
-        Delete
-      </a>
+        <tbody>
 
-    </td>
+        <tr th:each="forecast : ${forecasts}">
 
-  </tr>
+          <td th:text="${forecast.vessel.name}"></td>
 
-  </tbody>
+          <td th:text="${forecast.budget.budgetYear}"></td>
 
-</table>
+          <td th:text="${forecast.scenarioType}"></td>
 
-<br>
+          <td>
 
-<p>
-  <a th:href="@{/admin/dashboard}">
-    Back to Dashboard
-  </a>
-</p>
+                        <span th:if="${forecast.status.name() == 'DRAFT'}"
+                              class="badge bg-secondary"
+                              th:text="${forecast.status}">
+                        </span>
+
+            <span th:if="${forecast.status.name() == 'SUBMITTED'}"
+                  class="badge bg-warning text-dark"
+                  th:text="${forecast.status}">
+                        </span>
+
+            <span th:if="${forecast.status.name() == 'APPROVED'}"
+                  class="badge bg-success"
+                  th:text="${forecast.status}">
+                        </span>
+
+          </td>
+
+          <td th:text="${forecast.operatingDays}"></td>
+
+          <td th:text="${forecast.offHireDays}"></td>
+
+          <td th:text="${#numbers.formatDecimal(forecast.dailyRevenueRate,1,'POINT',2,'COMMA')}"></td>
+
+          <td th:text="${#numbers.formatDecimal(forecast.totalForecast,1,'POINT',2,'COMMA')}"></td>
+
+          <td>
+
+            <a th:href="@{/forecasts/{id}/edit(id=${forecast.id})}"
+               class="btn btn-sm btn-warning">
+              Edit
+            </a>
+
+            <a th:href="@{/forecasts/{id}/delete(id=${forecast.id})}"
+               class="btn btn-sm btn-danger"
+               onclick="return confirm('Are you sure you want to delete this Forecast?');">
+              Delete
+            </a>
+
+          </td>
+
+        </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
 
 </body>
+
 </html>

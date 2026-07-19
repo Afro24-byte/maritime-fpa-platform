@@ -1,195 +1,192 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <title>Variance Analysis</title>
   <meta charset="UTF-8">
+  <title>Variance Analysis</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<body>
+<body class="bg-light">
 
-<h1>Budget vs Actual Variance Analysis</h1>
+<div class="container">
 
+  <div class="page-header">
 
-<p th:if="${error}"
-   th:text="${error}"
-   style="color:red;">
-</p>
+    <h1>Budget vs Actual Variance Analysis</h1>
 
-<form th:action="@{/variance}" method="post">
+    <p class="text-secondary">
+      Compare Budget and Actual performance by vessel and fiscal year.
+    </p>
 
-  <p>
-    <label>Vessel:</label>
+  </div>
 
-    <select name="vesselId">
+  <div th:if="${error}"
+       class="alert alert-danger"
+       th:text="${error}">
+  </div>
 
-      <option value="">Select Vessel</option>
+  <div class="card shadow-sm mb-4">
 
-      <option th:each="vessel : ${vessels}"
-              th:value="${vessel.id}"
-              th:text="${vessel.name}">
-      </option>
+    <div class="card-body">
 
-    </select>
+      <form th:action="@{/variance}" method="post">
 
-  </p>
+        <div class="row">
 
-  <p>
+          <div class="col-md-5">
 
-    <label>Year:</label>
+            <label class="form-label">Vessel</label>
 
-    <input type="number"
-           name="year"
-           required>
+            <select name="vesselId"
+                    class="form-select"
+                    required>
 
-  </p>
+              <option value="">Select Vessel</option>
 
-  <button type="submit">
+              <option th:each="vessel : ${vessels}"
+                      th:value="${vessel.id}"
+                      th:text="${vessel.name}">
+              </option>
 
-    Calculate Variance
+            </select>
 
-  </button>
+          </div>
 
-</form>
+          <div class="col-md-3">
 
-<hr>
+            <label class="form-label">Year</label>
 
-<div th:if="${result != null}">
+            <input type="number"
+                   name="year"
+                   class="form-control"
+                   required>
 
-  <table border="1">
+          </div>
 
-    <thead>
+          <div class="col-md-4 d-flex align-items-end">
 
-    <tr>
+            <button type="submit"
+                    class="btn btn-primary w-100">
+              Calculate Variance
+            </button>
 
-      <th>Category</th>
+          </div>
 
-      <th>Budget</th>
+        </div>
 
-      <th>Actual</th>
+      </form>
 
-      <th>Variance</th>
+    </div>
 
-      <th>Variance %</th>
+  </div>
 
-    </tr>
+  <div th:if="${result != null}"
+       class="card shadow-sm">
 
-    </thead>
+    <div class="card-body">
 
-    <tbody>
+      <table class="table table-striped table-hover align-middle mb-0">
 
-    <tr>
+        <thead class="table-dark">
 
-      <td>Fuel</td>
+        <tr>
+          <th>Category</th>
+          <th>Budget</th>
+          <th>Actual</th>
+          <th>Variance</th>
+          <th>Variance %</th>
+        </tr>
 
-      <td th:text="${result.budget.fuelCost}"></td>
+        </thead>
 
-      <td th:text="${result.actual.fuelCost}"></td>
+        <tbody>
 
-      <td th:text="${result.fuelVariance}"></td>
+        <tr>
+          <td>Fuel</td>
+          <td th:text="${#numbers.formatDecimal(result.budget.fuelCost,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.actual.fuelCost,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.fuelVariance,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.fuelVariancePercentage,1,'POINT',2,'COMMA')} + '%'"></td>
+        </tr>
 
-      <td th:text="${#numbers.formatDecimal(result.fuelVariancePercentage, 1, 2)} + '%'"></td>
+        <tr>
+          <td>Crew</td>
+          <td th:text="${#numbers.formatDecimal(result.budget.crewCost,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.actual.crewCost,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.crewVariance,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.crewVariancePercentage,1,'POINT',2,'COMMA')} + '%'"></td>
+        </tr>
 
-    </tr>
+        <tr>
+          <td>Maintenance</td>
+          <td th:text="${#numbers.formatDecimal(result.budget.maintenanceCost,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.actual.maintenanceCost,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.maintenanceVariance,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.maintenanceVariancePercentage,1,'POINT',2,'COMMA')} + '%'"></td>
+        </tr>
 
-    <tr>
+        <tr>
+          <td>Insurance</td>
+          <td th:text="${#numbers.formatDecimal(result.budget.insuranceCost,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.actual.insuranceCost,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.insuranceVariance,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.insuranceVariancePercentage,1,'POINT',2,'COMMA')} + '%'"></td>
+        </tr>
 
-      <td>Crew</td>
+        <tr>
+          <td>Port Charges</td>
+          <td th:text="${#numbers.formatDecimal(result.budget.portCharges,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.actual.portCharges,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.portVariance,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.portVariancePercentage,1,'POINT',2,'COMMA')} + '%'"></td>
+        </tr>
 
-      <td th:text="${result.budget.crewCost}"></td>
+        <tr>
+          <td>Other Expenses</td>
+          <td th:text="${#numbers.formatDecimal(result.budget.otherExpenses,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.actual.otherExpenses,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.otherVariance,1,'POINT',2,'COMMA')}"></td>
+          <td th:text="${#numbers.formatDecimal(result.otherVariancePercentage,1,'POINT',2,'COMMA')} + '%'"></td>
+        </tr>
 
-      <td th:text="${result.actual.crewCost}"></td>
+        <tr class="table-primary">
 
-      <td th:text="${result.crewVariance}"></td>
+          <th>Total</th>
 
-      <td th:text="${#numbers.formatDecimal(result.crewVariancePercentage, 1, 2)} + '%'"></td>
+          <th th:text="${#numbers.formatDecimal(result.budget.totalBudget,1,'POINT',2,'COMMA')}"></th>
 
-    </tr>
+          <th th:text="${#numbers.formatDecimal(result.actual.totalActual,1,'POINT',2,'COMMA')}"></th>
 
-    <tr>
+          <th th:text="${#numbers.formatDecimal(result.totalVariance,1,'POINT',2,'COMMA')}"></th>
 
-      <td>Maintenance</td>
+          <th th:text="${#numbers.formatDecimal(result.totalVariancePercentage,1,'POINT',2,'COMMA')} + '%'"></th>
 
-      <td th:text="${result.budget.maintenanceCost}"></td>
+        </tr>
 
-      <td th:text="${result.actual.maintenanceCost}"></td>
+        </tbody>
 
-      <td th:text="${result.maintenanceVariance}"></td>
+      </table>
 
-      <td th:text="${#numbers.formatDecimal(result.maintenanceVariancePercentage, 1, 2)} + '%'"></td>
+    </div>
 
-    </tr>
+  </div>
 
-    <tr>
+  <div class="mt-4">
 
-      <td>Insurance</td>
+    <a th:href="@{/admin/dashboard}"
+       class="btn btn-outline-secondary">
+      Dashboard
+    </a>
 
-      <td th:text="${result.budget.insuranceCost}"></td>
-
-      <td th:text="${result.actual.insuranceCost}"></td>
-
-      <td th:text="${result.insuranceVariance}"></td>
-
-      <td th:text="${#numbers.formatDecimal(result.insuranceVariancePercentage, 1, 2)} + '%'"></td>
-
-    </tr>
-
-    <tr>
-
-      <td>Port Charges</td>
-
-      <td th:text="${result.budget.portCharges}"></td>
-
-      <td th:text="${result.actual.portCharges}"></td>
-
-      <td th:text="${result.portVariance}"></td>
-
-      <td th:text="${#numbers.formatDecimal(result.portVariancePercentage, 1, 2)} + '%'"></td>
-
-    </tr>
-
-    <tr>
-
-      <td>Other Expenses</td>
-
-      <td th:text="${result.budget.otherExpenses}"></td>
-
-      <td th:text="${result.actual.otherExpenses}"></td>
-
-      <td th:text="${result.otherVariance}"></td>
-
-      <td th:text="${#numbers.formatDecimal(result.otherVariancePercentage, 1, 2)} + '%'"></td>
-
-    </tr>
-
-    <tr>
-
-      <th>Total</th>
-
-      <th th:text="${result.budget.totalBudget}"></th>
-
-      <th th:text="${result.actual.totalActual}"></th>
-
-      <th th:text="${result.totalVariance}"></th>
-
-      <th th:text="${#numbers.formatDecimal(result.totalVariancePercentage, 1, 2)} + '%'"></th>
-
-    </tr>
-
-    </tbody>
-
-  </table>
+  </div>
 
 </div>
 
-<p>
-
-  <a th:href="@{/admin/dashboard}">
-
-    Back to Dashboard
-
-  </a>
-
-</p>
-
 </body>
+
 </html>

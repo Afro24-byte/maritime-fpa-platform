@@ -1,176 +1,218 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Create Forecast</title>
     <meta charset="UTF-8">
+    <title>Create Forecast</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<body>
+<body class="bg-light">
 
-<h1>Create Forecast</h1>
+<div class="container">
 
-<form th:action="@{${formAction}}"
-      th:object="${forecast}"
-      method="post">
+    <div class="page-header">
 
-    <fieldset>
-        <legend><strong>Forecast Information</strong></legend>
+        <h1>Create Forecast</h1>
 
-        <p>
-            <label>Vessel:</label>
-
-            <select id="vesselId"
-                    name="vesselId"
-                    required>
-
-                <option value="">Select Vessel</option>
-
-                <option th:each="vessel : ${vessels}"
-                        th:value="${vessel.id}"
-                        th:text="${vessel.name}"
-                        th:selected="${forecast.vessel != null and forecast.vessel.id == vessel.id}">
-                </option>
-
-            </select>
+        <p class="text-secondary">
+            Create or update financial forecast scenarios.
         </p>
 
-        <p>
-            <label>Budget:</label>
+    </div>
 
-            <select id="budgetId"
-                    name="budgetId"
-                    required>
+    <div class="card shadow-sm">
 
-                <option value="">Select Budget</option>
+        <div class="card-body">
 
-                <option th:each="budget : ${budgets}"
-                        th:value="${budget.id}"
-                        th:text="${budget.vessel.name + ' - ' + budget.budgetYear}"
-                        th:selected="${forecast.budget != null and forecast.budget.id == budget.id}">
-                </option>
+            <form th:action="@{${formAction}}"
+                  th:object="${forecast}"
+                  method="post">
 
-            </select>
-        </p>
+                <h4 class="mb-3">Forecast Information</h4>
 
-        <p>
-            <label>Scenario:</label>
+                <div class="mb-3">
 
-            <select th:field="*{scenarioType}" required>
+                    <label class="form-label">Vessel</label>
 
-                <option
-                        th:each="scenario : ${scenarioTypes}"
-                        th:value="${scenario}"
-                        th:text="${scenario}">
-                </option>
+                    <select id="vesselId"
+                            name="vesselId"
+                            class="form-select"
+                            required>
 
-            </select>
-        </p>
+                        <option value="">Select Vessel</option>
 
-        <p>
-            <label>Status:</label>
+                        <option th:each="vessel : ${vessels}"
+                                th:value="${vessel.id}"
+                                th:text="${vessel.name}"
+                                th:selected="${forecast.vessel != null and forecast.vessel.id == vessel.id}">
+                        </option>
 
-            <select th:field="*{status}" required>
+                    </select>
 
-                <option
-                        th:each="status : ${statuses}"
-                        th:value="${status}"
-                        th:text="${status}">
-                </option>
+                </div>
 
-            </select>
-        </p>
+                <div class="mb-3">
 
-    </fieldset>
+                    <label class="form-label">Budget</label>
 
-    <br>
+                    <select id="budgetId"
+                            name="budgetId"
+                            class="form-select"
+                            required>
 
-    <fieldset>
+                        <option value="">Select Budget</option>
 
-        <legend><strong>Operational Assumptions</strong></legend>
+                        <option th:each="budget : ${budgets}"
+                                th:value="${budget.id}"
+                                th:text="${budget.vessel.name + ' - ' + budget.budgetYear}"
+                                th:selected="${forecast.budget != null and forecast.budget.id == budget.id}">
+                        </option>
 
-        <p>
-            <label>Operating Days:</label>
-            <input type="number"
-                   th:field="*{operatingDays}"
-                   required/>
-        </p>
+                    </select>
 
-        <p>
-            <label>Off Hire Days:</label>
-            <input type="number"
-                   th:field="*{offHireDays}"
-                   required/>
-        </p>
+                </div>
 
-        <p>
-            <label>Daily Revenue Rate:</label>
-            <input type="number"
-                   step="0.01"
-                   th:field="*{dailyRevenueRate}"
-                   required/>
-        </p>
+                <div class="mb-3">
 
-    </fieldset>
+                    <label class="form-label">Scenario</label>
 
-    <br>
+                    <select class="form-select"
+                            th:field="*{scenarioType}"
+                            required>
 
-    <fieldset>
+                        <option th:each="scenario : ${scenarioTypes}"
+                                th:value="${scenario}"
+                                th:text="${scenario}">
+                        </option>
 
-        <legend><strong>Forecast Costs</strong></legend>
+                    </select>
 
-        <p>
-            <label>Fuel Cost:</label>
-            <input type="number" step="0.01"
-                   th:field="*{fuelCost}" required/>
-        </p>
+                </div>
 
-        <p>
-            <label>Crew Cost:</label>
-            <input type="number" step="0.01"
-                   th:field="*{crewCost}" required/>
-        </p>
+                <div class="mb-4">
 
-        <p>
-            <label>Maintenance Cost:</label>
-            <input type="number" step="0.01"
-                   th:field="*{maintenanceCost}" required/>
-        </p>
+                    <label class="form-label">Status</label>
 
-        <p>
-            <label>Insurance Cost:</label>
-            <input type="number" step="0.01"
-                   th:field="*{insuranceCost}" required/>
-        </p>
+                    <select class="form-select"
+                            th:field="*{status}"
+                            required>
 
-        <p>
-            <label>Port Charges:</label>
-            <input type="number" step="0.01"
-                   th:field="*{portCharges}" required/>
-        </p>
+                        <option th:each="status : ${statuses}"
+                                th:value="${status}"
+                                th:text="${status}">
+                        </option>
 
-        <p>
-            <label>Other Expenses:</label>
-            <input type="number" step="0.01"
-                   th:field="*{otherExpenses}" required/>
-        </p>
+                    </select>
 
-    </fieldset>
+                </div>
 
-    <br>
+                <hr class="my-4">
 
-    <button type="submit">
-        Save Forecast
-    </button>
+                <h4 class="mb-3">Operational Assumptions</h4>
 
-</form>
+                <div class="mb-3">
 
-<br>
+                    <label class="form-label">Operating Days</label>
 
-<p>
-    <a th:href="@{/forecasts}">
-        Back to Forecast List
-    </a>
-</p>
+                    <input type="number"
+                           class="form-control"
+                           th:field="*{operatingDays}"
+                           required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">Off Hire Days</label>
+
+                    <input type="number"
+                           class="form-control"
+                           th:field="*{offHireDays}"
+                           required>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label">Daily Revenue Rate</label>
+
+                    <input type="number"
+                           step="0.01"
+                           class="form-control"
+                           th:field="*{dailyRevenueRate}"
+                           required>
+
+                </div>
+
+                <hr class="my-4">
+
+                <h4 class="mb-3">Forecast Costs</h4>
+
+                <div class="mb-3">
+                    <label class="form-label">Fuel Cost</label>
+                    <input type="number" step="0.01"
+                           class="form-control"
+                           th:field="*{fuelCost}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Crew Cost</label>
+                    <input type="number" step="0.01"
+                           class="form-control"
+                           th:field="*{crewCost}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Maintenance Cost</label>
+                    <input type="number" step="0.01"
+                           class="form-control"
+                           th:field="*{maintenanceCost}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Insurance Cost</label>
+                    <input type="number" step="0.01"
+                           class="form-control"
+                           th:field="*{insuranceCost}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Port Charges</label>
+                    <input type="number" step="0.01"
+                           class="form-control"
+                           th:field="*{portCharges}" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Other Expenses</label>
+                    <input type="number" step="0.01"
+                           class="form-control"
+                           th:field="*{otherExpenses}" required>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Save Forecast
+                </button>
+
+                <a th:href="@{/forecasts}"
+                   class="btn btn-outline-secondary ms-2">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
+
 </html>
