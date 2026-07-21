@@ -43,6 +43,31 @@
         Vessel Management
       </a>
 
+      <a th:href="@{/budgets}"
+         class="list-group-item list-group-item-action">
+        Budget Management
+      </a>
+
+      <a th:href="@{/forecasts}"
+         class="list-group-item list-group-item-action">
+        Forecast Management
+      </a>
+
+      <a th:href="@{/actuals}"
+         class="list-group-item list-group-item-action">
+        Actual Performance
+      </a>
+
+      <a th:href="@{/variance}"
+         class="list-group-item list-group-item-action">
+        Variance Analysis
+      </a>
+
+      <a th:href="@{/kpi/dashboard}"
+         class="list-group-item list-group-item-action">
+        Executive KPI Dashboard
+      </a>
+
     </div>
 
     <form th:action="@{/logout}" method="post" class="mt-4">

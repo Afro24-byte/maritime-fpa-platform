@@ -27,7 +27,7 @@
 
   <nav class="mb-4">
 
-    <a th:href="@{/admin/dashboard}"
+    <a th:href="@{/dashboard}"
        class="btn btn-outline-secondary btn-sm">
       Dashboard
     </a>
@@ -100,8 +100,9 @@
               Edit
             </a>
 
-            <a th:href="@{/vessels/{id}/delete(id=${vessel.id})}"
-               class="btn btn-sm btn-danger">
+            <a th:href="@{/vessels/delete/{id}(id=${vessel.id})}"
+               class="btn btn-sm btn-danger"
+               onclick="return confirm('Are you sure you want to delete this vessel?');">
               Delete
             </a>
 
