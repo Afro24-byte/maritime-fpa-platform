@@ -16,16 +16,8 @@ A full-stack enterprise web application developed with **Spring Boot MVC** and *
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple)
 ![Maven](https://img.shields.io/badge/Build-Maven-red)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
-> 
-> ## Highlights
 
-- Enterprise Spring Boot MVC Application
-- Maritime Financial Planning & Analysis Platform
-- Secure Role-Based Access Control (RBAC)
-- Six End-to-End Business Capabilities
-- PostgreSQL Persistence with Spring Data JPA
-- Professional GitHub Portfolio Project
+
 
 ## Executive Summary
 
@@ -55,30 +47,17 @@ As fleet size and operational complexity increase, these challenges make it diff
 
 The **Maritime FP&A Decision Intelligence Platform** addresses these challenges by centralizing key Financial Planning & Analysis (FP&A) processes into a secure enterprise web application. It combines fleet management, financial planning, variance analysis, and executive KPI reporting within a unified system designed to support operational and strategic decision-making.
 
-## Key Features
-
-| Feature | Description |
-|----------|-------------|
-| 🔐 **Authentication & Authorization** | Secure user authentication and Role-Based Access Control (RBAC) with Administrator, Manager, and Analyst roles. |
-| 🚢 **Fleet & Vessel Management** | Centralized management of fleets and vessels with relational data modeling and operational information. |
-| 💰 **Budget Planning** | Annual budget creation, maintenance, and financial planning for individual vessels. |
-| 📈 **Forecast & Scenario Planning** | Financial forecasting with Base, Best Case, and Worst Case scenarios to support planning decisions. |
-| 📊 **Actual Performance & Variance Analysis** | Comparison of Budget versus Actual performance with automated variance calculations and financial insights. |
-| 📉 **Executive KPI Dashboard** | Consolidated financial KPIs and performance indicators to support executive decision-making. |
-| 🏗️ **Enterprise Architecture** | Layered Spring MVC architecture following Controller–Service–Repository design principles. |
-| 🗄️ **Data Persistence** | PostgreSQL database integration using Spring Data JPA and Hibernate ORM. |
-| 🖥️ **Modern Web Interface** | Responsive server-side rendered UI built with Thymeleaf and Bootstrap 5. |
 
 > **Application at a Glance**
->
 > - 6 Business Capabilities
 > - 3 User Roles
-> - 9 Core Domain Entities
+> - 7 Core Domain Entities
 > - Spring MVC Layered Architecture
 > - PostgreSQL Relational Database
 > - Secure Authentication & Authorization
 > 
-> ## Business Capabilities
+>
+ ## Business Capabilities
 
 The platform is organized into six core Business Capabilities (BCs), each representing a major functional area of the Financial Planning & Analysis (FP&A) process.
 
@@ -90,41 +69,6 @@ The platform is organized into six core Business Capabilities (BCs), each repres
 | **BC-04 – Forecast & Scenario Planning** | Creation of financial forecasts using multiple planning scenarios (Base, Best Case, and Worst Case) for decision support. |
 | **BC-05 – Actual Performance & Variance Analysis** | Recording of actual financial performance and automated Budget vs Actual variance analysis to evaluate operational results. |
 | **BC-06 – KPI Analytics & Executive Dashboard** | Executive dashboards providing financial KPIs and performance indicators for management reporting and strategic decision-making. |
-
-```text
-                    Maritime FP&A Platform
-
-      ┌───────────────────────────────────────────┐
-      │ BC-01 Authentication & Authorization      │
-      └───────────────────────────────────────────┘
-                        │
-                        ▼
-      ┌───────────────────────────────────────────┐
-      │ BC-02 Fleet Management                    │
-      └───────────────────────────────────────────┘
-                        │
-                        ▼
-      ┌───────────────────────────────────────────┐
-      │ BC-03 Budget Management                   │
-      └───────────────────────────────────────────┘
-                        │
-                        ▼
-      ┌───────────────────────────────────────────┐
-      │ BC-04 Forecast & Scenario Planning        │
-      └───────────────────────────────────────────┘
-                        │
-                        ▼
-      ┌───────────────────────────────────────────┐
-      │ BC-05 Actual Performance & Variance       │
-      └───────────────────────────────────────────┘
-                        │
-                        ▼
-      ┌───────────────────────────────────────────┐
-      │ BC-06 KPI Analytics & Executive Dashboard │
-      └───────────────────────────────────────────┘
-```
-
-
 
 ## Architecture
 
@@ -150,23 +94,6 @@ PostgreSQL Database
 ```
 
 The application follows the Controller–Service–Repository pattern, ensuring a clear separation between presentation, business logic, and data access layers. Spring Security provides authentication and role-based authorization, while Thymeleaf is used for server-side rendering of the user interface.
-
-## Technology Stack
-
-| Category | Technology |
-|----------|------------|
-| **Programming Language** | Java 17 |
-| **Framework** | Spring Boot 3 |
-| **Architecture** | Spring MVC |
-| **Presentation Layer** | Thymeleaf |
-| **Security** | Spring Security |
-| **Persistence** | Spring Data JPA, Hibernate |
-| **Database** | PostgreSQL |
-| **Build Tool** | Maven |
-| **Frontend** | HTML5, CSS3, Bootstrap 5 |
-| **Template Engine** | Thymeleaf |
-| **IDE** | IntelliJ IDEA Community Edition |
-| **Version Control** | Git & GitHub |
 
 ### Architectural Choices
 
@@ -211,7 +138,6 @@ These entities are mapped to a PostgreSQL relational database using Spring Data 
 | **Build Tool** | Maven |
 | **Version Control** | Git & GitHub |
 | **Development Environment** | IntelliJ IDEA Community Edition |
-| **Database** | PostgreSQL |
 
 The application was developed using modern Java enterprise technologies, following Spring Boot best practices and a layered MVC architecture. The selected technology stack provides a secure, maintainable, and scalable foundation for Financial Planning & Analysis (FP&A) processes within the maritime domain.
 
@@ -244,6 +170,33 @@ maritime-fpa-platform
 ├── pom.xml
 └── README.md
 ```
+### Package Overview
+
+| Package | Responsibility |
+|---------|----------------|
+| **config** | Spring Boot configuration classes |
+| **controller** | Handles HTTP requests and application flow |
+| **entity** | JPA domain entities |
+| **enums** | Business enumerations |
+| **repository** | Spring Data JPA repositories |
+| **security** | Spring Security configuration and authentication |
+| **service** | Business logic and application services |
+| **templates** | Thymeleaf views |
+| **static** | CSS and static web resources |
+
+## Default Demo Users
+
+For demonstration and evaluation purposes, the application automatically initializes predefined roles and user accounts during the first application startup.
+
+| Role | Email | Password |
+|------|--------|----------|
+| Administrator | admin@maritimefpa.com | admin123 |
+| Manager | manager@maritimefpa.com | manager123 |
+| Analyst | analyst@maritimefpa.com | analyst123 |
+
+These demo accounts allow immediate access to the application's role-based functionality without requiring manual user registration.
+
+> **Note:** User accounts are created only if they do not already exist in the database.
 
 ## Application Screenshots
 
@@ -287,19 +240,6 @@ maritime-fpa-platform
 
 ![Executive Dashboard](docs/screenshots/executive-dashboard.png)
 
-### Package Overview
-
-| Package | Responsibility |
-|---------|----------------|
-| **config** | Spring Boot configuration classes |
-| **controller** | Handles HTTP requests and application flow |
-| **entity** | JPA domain entities |
-| **enums** | Business enumerations |
-| **repository** | Spring Data JPA repositories |
-| **security** | Spring Security configuration and authentication |
-| **service** | Business logic and application services |
-| **templates** | Thymeleaf views |
-| **static** | CSS and static web resources |
 
 ## Installation
 
@@ -320,7 +260,7 @@ Before running the application, ensure the following software is installed:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/maritime-fpa-platform.git
+git clone https://github.com/Afro24-byte/maritime-fpa-platform
 cd maritime-fpa-platform
 ```
 
@@ -353,8 +293,8 @@ spring.jpa.hibernate.ddl-auto=update
 > **Note**
 >
 > The application automatically creates or updates the database schema on startup using Hibernate (`spring.jpa.hibernate.ddl-auto=update`).
-> 
-> ## Build & Deployment
+
+## Build & Deployment
 
 ### Build the Application
 
@@ -398,21 +338,9 @@ http://localhost:8080
 
 The application will display the login page, where users can authenticate according to their assigned role (Administrator, Manager, or Analyst).
 
----
-
-### Database Initialization
-
-The application uses Hibernate for schema management.
-
-On startup, Hibernate automatically creates or updates the database schema based on the configured JPA entities:
-
-```properties
-spring.jpa.hibernate.ddl-auto=update
-```
-
-No manual SQL scripts are required for the initial database schema creation.
-
 Note: This project is currently intended for local deployment and development environments.
+
+---
 
 ## Project Status
 
@@ -442,6 +370,17 @@ Planned enhancements for future releases include:
 - CI/CD pipeline integration
 - Cloud deployment
 - REST API for third-party integrations
+
+## Author
+
+**Afroditi Gkotsi**
+
+Finance professional with 15+ years of experience across Financial Planning & Analysis (FP&A), audit, and business analytics, currently working as an FP&A Manager. Skilled in budgeting, forecasting, variance analysis, financial reporting, and BI tooling (Power BI, Python, SQL).
+
+This platform was developed as the final project for the Coding Factory program (Athens University of Economics and Business). It reflects a practitioner's view of FP&A: the workflows, controls, and reporting structures it implements are the ones finance teams actually use — reimagined as a modern, role-based decision-support application.
+
+- **GitHub:** https://github.com/Afro24-byte
+- **LinkedIn:** https://www.linkedin.com/in/afroditigkotsi/
 
 
 
